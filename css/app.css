@@ -1,0 +1,114 @@
+*{
+	box-sizing:border-box;
+	font-family: 'Raleway', sans-serif;
+	margin:0;
+	padding:0;
+}
+.background-image{
+	background-image: url('../images/forest.jpg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center;
+	background-attachment:fixed;
+	height:100%;
+}
+.widget-wrapper{
+	position:absolute;
+	top:35%;
+	text-align:center;
+	left:50%;
+	width:100%;
+	transform:translate(-50%,0%);
+	color:#fff;
+
+}
+.widget-wrapper h1{
+	font-size:13em;
+}
+.widget-wrapper h2{
+	font-size:3em;
+	margin-bottom:1em;
+}
+.todo__main-wrapper h2{
+	font-size:2em;
+}
+.todo__list-wrapper{
+	font-size:2em;
+}
+.todo__list-wrapper ul li a{
+	text-decoration:none;
+	text-align:center;
+	color:#fff;
+	padding:15px;
+}
+
+.todo__list-wrapper span{
+	cursor:pointer;
+	border-radius:50%;
+	position:absolute;
+	text-align:center;
+	width:45px; 
+	height:45px;
+	transition:all 1s ease;
+}
+.todo__list-wrapper span:hover{
+	cursor:pointer;
+	color:#e0e0e0;
+	border:1px solid #fff;
+}
+.todo-wrapper,.todo-btn{
+	position:absolute;
+	right:0;
+	padding:15px;
+}
+.todo-btn{
+	font-size:1.5em;
+	cursor:pointer;
+	text-align:center;
+	text-decoration:none;
+	color:#fff;
+	bottom:0;
+}
+.todo-btn:hover{
+	color:#95a5a6;
+}
+.todo-wrapper{
+	display:none;
+	border-radius: 5px;
+	bottom:65;
+	background-color:#000;
+	opacity:0.7;
+	width:400px;
+}
+.todo-wrapper h3{
+	color:#fff;
+	padding-bottom:15px;
+}
+.todo-wrapper__list ul li{
+	font-size:13px;
+	position:relative;
+	list-style-type:none;
+	color:#fff;
+	padding:8px 15px;
+}
+.todo-wrapper__list ul li span{
+	  position: absolute;
+	  right:0;
+	  top:-.5px;
+	  cursor:pointer;
+	  font-size:1.5em;
+}
+.todo-wrapper__list ul li span:hover{
+	color:#95a5a6;
+}
+.todo-wrapper.show{
+	display:block;
+}
+.clearfix{
+	content:'';
+	clear: both;
+	height:0;
+	visibility:hidden;
+	display:block;
+}
+
