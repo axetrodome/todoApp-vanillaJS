@@ -33,10 +33,13 @@ function openLink(event){
 			        'November',
 			        'December'
 	    		],
-	hours = ((now.getHours() + 11) % 12 + 1)
+	    hours = now.getHours(),
+	    ampm = now.getHours() <= 12 ? 'AM' : 'PM';
+	hours = ((hours + 11) % 12 + 1)
 	    		
-	time = hours + ':' +now.getMinutes()
+	time = hours + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes() +'<small class="small">'+ ampm+'</small>'; 
 
 	document.getElementById('time').innerHTML = time
 	setTimeout(updateClock,1000)
 })(); //invoking itself
+//its time for local storage thing
