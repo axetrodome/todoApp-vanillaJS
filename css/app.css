@@ -34,6 +34,7 @@ body,html{
 	font-size:3em;
 	margin-bottom:1em;
 }
+/*modals wrappers */
 .todo__main-wrapper h2{
 	font-size:2em;
 }
@@ -125,6 +126,10 @@ body,html{
 }
 .link-wrapper__list ul li a{
 	text-decoration:none;
+	color: #fff;\
+	transition:0.4s;
+}
+.link-wrapper__list ul li a:hover{
 	color: #fff;
 }
 .todo-wrapper__list ul li span,
@@ -142,6 +147,7 @@ body,html{
 .todo-wrapper.show,.link-wrapper.show{
 	display:block;
 }
+/*end of modal wrappers */
 .clearfix{
 	content:'';
 	clear: both;
@@ -149,6 +155,9 @@ body,html{
 	visibility:hidden;
 	display:block;
 }
+/*
+	input design
+*/
 .input{
 	width:100%;
 	outline:none;
@@ -172,7 +181,8 @@ body,html{
 	transition:0.4s;
 	left:0;
 }
-.top:before{
+/* triangle design */
+.link-wrapper::before{
 	content:'';
 	position: absolute;
 	top:-15%;
@@ -184,20 +194,21 @@ body,html{
 	border-top: solid 10px transparent;
 	border-left: solid 10px transparent;
 	border-right: solid 10px transparent;
-	border-bottom: solid 10px;
+	border-bottom: solid 10px; /* Show in top */
 }
-.bottom::before {
+
+.todo-wrapper::after {
     content:'';
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    right: -80%;
     margin: 0 auto;
     width: 0;
     height: 0;
-    border-top: solid 50px #e15915;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
+    border-top: solid 10px; /* Show in bottom */
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
 }
 .small{
 	font-size:65px !important;

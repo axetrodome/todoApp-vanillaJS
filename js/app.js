@@ -8,6 +8,7 @@ function Open(event){
 		todoModal.className = 'todo-wrapper'
 	}
 }
+
 function openLink(event){
 	let linkModal = document.getElementById('linkModal'),
 		linkBtn = document.getElementById('linkBtn')
@@ -18,6 +19,7 @@ function openLink(event){
 		linkModal.className = 'link-wrapper'
 	}
 }
+
 (function updateClock(){
 	let now = new Date(),
 	    months = [	'January', 
@@ -34,12 +36,31 @@ function openLink(event){
 			        'December'
 	    		],
 	    hours = now.getHours(),
-	    ampm = now.getHours() <= 12 ? 'AM' : 'PM';
-	hours = ((hours + 11) % 12 + 1)
-	    		
-	time = hours + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes() +'<small class="small">'+ ampm+'</small>'; 
+	    minutes = now.getMinutes(),
+	    getDayTime = new DayTime(hours,minutes)
+	// hours = ((hours + 11) % 12 + 1)
+	time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
+	greetings = getDayTime.Greetings
 
 	document.getElementById('time').innerHTML = time
+	document.getElementById('greetings').innerHTML = greetings
+
 	setTimeout(updateClock,1000)
 })(); //invoking itself
+
+function DayTime(hours,minutes){
+	this.hours = hours
+	this.minutes = minutes
+	if(this.hours <= 12){
+		this.AmPm = 'AM'
+		this.Greetings = 'Good Morning'
+	}else{
+		this.AmPm = 'PM'
+		this.Greetings = 'Good Morning'
+	}
+	this.getTime = () => {
+		return time = this.hours + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
+	}
+}
+
 //its time for local storage thing
