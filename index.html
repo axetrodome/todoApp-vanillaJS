@@ -13,10 +13,20 @@
 		<link rel="icon" href="">
 	</head>
 	<body>
-		<div class="background-image">
+		<div class="background-image" id="background">
+			<a href="javascript:void(0)" class="link-btn" id="linkBtn" onclick="openLink()">Links</a>
+			<div class="link-wrapper top" id="linkModal">
+				<div class="link-wrapper__list">
+					<ul>
+						<li><a href="#">Some fucking link</a><span class="close">&times;</span></li>
+					</ul>
+					<input type="text" class="input" placeholder="Name">
+					<input type="text" class="input" placeholder="URL">
+				</div>
+			</div>
 			<div class="widget-wrapper">
-				<h1>21:15</h1>
-				<h2>Good Evening, Axel Mhar</h2>
+				<h1><span id="time"></span></h1>
+				<h2>Good Evening, Axel Mhar.</h2>
 				<div class="todo__main-wrapper">
 					<h2>Today</h2>
 					<div class="todo__main-focus">
@@ -28,14 +38,16 @@
 					</div>
 				</div>
 			</div>
-			<a href="javascript:void(0)" class="todo-btn" id="todoBtn">Todo</a>
-			<div class="todo-wrapper hide" id="todoModal">
+			<a onclick="Open()" class="todo-btn" id="todoBtn">Todo</a>
+			<div class="todo-wrapper bottom" id="todoModal">
 				<h3 >Today <i class="fa fa-caret-down"></i></h3>
 				<div class="todo-wrapper__list">
 					<ul>
 						<li>Continue the course <span>&times;</span></li>
 						<li>Continue reading the javascript tutorial in PDF <span>&times;</span></li>
 					</ul>
+					<input type="text" class="input" placeholder="New todo">
+					<span class="focus-border"></span>
 				</div>
 			</div>
 		</div>
