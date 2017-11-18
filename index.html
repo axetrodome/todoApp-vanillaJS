@@ -48,13 +48,12 @@
 			<div class="todo-wrapper" id="todoModal">
 				<h3 >Today <i class="fa fa-caret-down"></i></h3>
 				<div class="todo-wrapper__list">
-					<ul>
-						<li>Continue the course <span>&times;</span></li>
-						<li>Continue reading the javascript tutorial in PDF <span>&times;</span></li>
-					</ul>
-					<form id="">
+					<!-- results -->
+					<ul id="todoListResult"></ul>
+
+					<form id="todoForm">
 						<div class="field">
-							<input type="text" class="input" placeholder="New todo">
+							<input type="text" class="input" placeholder="New todo" id="todoInput">
 							<span class="focus-border"></span>
 						</div>
 					</form>
@@ -65,3 +64,4 @@
 		<script src="js/app.js"></script>
 	</body>
 </html>
+

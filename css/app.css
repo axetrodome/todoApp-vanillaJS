@@ -196,7 +196,6 @@ body,html{
 	border-right: solid 10px transparent;
 	border-bottom: solid 10px; /* Show in top */
 }
-
 .todo-wrapper::after {
     content:'';
     position: absolute;

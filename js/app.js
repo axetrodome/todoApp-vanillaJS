@@ -35,10 +35,9 @@ function openLink(event){
 			        'November',
 			        'December'
 	    		],
-	    hours = now.getHours(),
+	    hours = (now.getHours() % 12)
 	    minutes = now.getMinutes(),
 	    getDayTime = new DayTime(hours,minutes)
-	// hours = ((hours + 11) % 12 + 1)
 	time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
 	greetings = getDayTime.Greetings
 
@@ -47,7 +46,6 @@ function openLink(event){
 
 	setTimeout(updateClock,1000)
 })(); //invoking itself
-
 function DayTime(hours,minutes){
 	this.hours = hours
 	this.minutes = minutes
@@ -64,3 +62,47 @@ function DayTime(hours,minutes){
 }
 
 //its time for local storage thing
+let form = document.getElementById('todoForm'),
+	selectedIndex = -1
+
+form.addEventListener('submit',saveTodo)
+function saveTodo(event){
+	event.preventDefault()
+	let todoInput = document.getElementById('todoInput').value,
+	 	todoList = {
+		task:todoInput
+	}
+	if(localStorage.getItem('todoLists') === null){
+		let todoLists = []
+		todoLists.push(todoList)
+		localStorage.setItem('todoLists',JSON.stringify(todoLists))
+	}else{
+		let todoLists = JSON.parse(localStorage.getItem('todoLists'))
+
+		todoLists.push(todoList)
+		localStorage.setItem('todoLists',JSON.stringify(todoLists))
+	}
+	form.reset()
+	fetchTodoList();
+}
+function deleteTask(task){
+	var todoLists = JSON.parse(localStorage.getItem('todoLists'))
+	for(var i = 0;i < todoLists.length;i++){
+		if(todoLists[i].task === task){
+			todoLists.splice(i,1)
+		}
+	}
+	localStorage.setItem('todoLists',JSON.stringify(todoLists))
+	fetchTodoList();
+}
+function fetchTodoList(){
+	var todoLists = JSON.parse(localStorage.getItem('todoLists')),
+		todoListResult = document.getElementById('todoListResult')
+
+	todoListResult.innerHTML = ''
+	for(var i = 0; i < todoLists.length;i++){
+		var task = todoLists[i].task
+		todoListResult.innerHTML += '<li>' + task + '<span onclick="deleteTask(\''+ task +'\')">&times;</span></li>'
+	}
+}
+fetchTodoList()
