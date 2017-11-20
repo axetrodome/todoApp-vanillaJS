@@ -64,14 +64,15 @@ function DayTime(hours,minutes){
 		return time = ((this.hours + 1) % 12 + 11) + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
 	}
 }
-
-let todoForm = document.getElementById('todoForm'),
+//forms
+var todoForm = document.getElementById('todoForm'),
 	linkForm = document.getElementById('linkForm'),
+	mainFocusForm = document.getElementById('mainFocusForm'),
 	selectedIndex = -1
-
+//event listeners
 todoForm.addEventListener('submit',saveTodo)
-
 linkForm.addEventListener('submit',saveLink)
+mainFocusForm.addEventListener('submit',saveMainFocus)
 
 function saveLink(event){
 	event.preventDefault()
@@ -87,7 +88,7 @@ function saveLink(event){
 		linkLists = []
 
 
-	insert(formObject,storage,linkLists,LinkData)
+	insert(formObject,storage,linkLists)
 
 	linkForm.reset()
 
@@ -104,16 +105,33 @@ function saveTodo(event){
 		},
 		todoLists = []
 
-	insert(todoObject,storage,todoLists,TodoData)
+	insert(todoObject,storage,todoLists)
 
 	todoForm.reset()
 
 	fetchTodoList()
 	
 }
+function saveMainFocus(event){
+	event.preventDefault()
+	var mainInput = document.getElementById('main-input').value,
+		mainFocusResult = document.getElementById('mainFocusResult'),
+		storage = 'mainFocus',
+		mainFocusObject = {
+			id:Date.now(),
+			taskName:mainInput
+		},
+		mainArray = []
+
+	insert(mainFocusObject,storage,mainArray)
+
+	mainFocusForm.reset()
+	
+	fetchMainFocusList();
+}
 
 // insert
-function insert(formObject,storage,arrayContainer,data){
+function insert(formObject,storage,arrayContainer){
 	this.formObject = formObject
 	this.storage = storage
 	this.arrayContainer = arrayContainer
@@ -142,6 +160,8 @@ function deleteTask(id,storage){
 
 	fetchTodoList();
 	fetchLinkList();
+	fetchMainFocusList();
+
 }
 
 //show
@@ -175,13 +195,37 @@ function fetchLinkList(){
 				name = linkLists[i].name,
 				id = linkLists[i].id
 
-			linkListResult.innerHTML += `<li><a href="${URL}">${name}</a><span onclick="deleteTask(${id},'linkLists')">&times;</span></li>`
+			linkListResult.innerHTML += `<li><a href="${URL}" target="_blank">${name}</a><span onclick="deleteTask(${id},'linkLists')">&times;</span></li>`
+		}
+	}
+}
+function fetchMainFocusList(){
+	var mainFocus = JSON.parse(localStorage.getItem('mainFocus')),
+		mainFocusResult = document.getElementById('mainFocusResult')
+
+	mainFocusResult.innerHTML = ``
+	if(!mainFocus.length){
+		mainFocusResult.innerHTML += `<li><h2>Empty List</h2></li>`
+	}else{
+		for(var i = 0; i < mainFocus.length;i++){
+			var taskName = mainFocus[i].taskName,
+				id = mainFocus[i].id
+			mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
 		}
 	}
 }
 //end show
+//add validation
+function validate(formObjects){
 
+}
+// add user
+// add logo
+//add add, show and delete 
+//add editing data
 //call the
+//refator fetching!
 fetchTodoList()
 fetchLinkList()
+fetchMainFocusList();
 

@@ -182,7 +182,7 @@ body,html{
 	left:0;
 }
 /* triangle design */
-.link-wrapper::before{
+.link-wrapper::after{
 	content:'';
 	position: absolute;
 	top:-14%;
@@ -211,4 +211,19 @@ body,html{
 }
 .small{
 	font-size:65px !important;
+}
+.main-field{
+	width:50%;
+	margin:auto;
+}
+.main-input{
+	text-align:center;
+	width:100%;
+	font-size:1em;
+	outline:none;
+	color:#fff;
+	border:none;
+	border-bottom:2px solid #fff;
+	background-color:transparent;
+	height:50
 }

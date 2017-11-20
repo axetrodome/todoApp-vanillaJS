@@ -17,7 +17,9 @@
 			<a class="link-btn" id="linkBtn" onclick="openLink()">Links</a>
 			<div class="link-wrapper" id="linkModal">
 				<div class="link-wrapper__list">
-					<ul id="linkListResult"></ul>
+					<div>
+						<ul id="linkListResult"></ul>
+					</div>
 					<form id="linkForm">
 						<div class="field">
 							<input type="text" id="name" class="input" placeholder="Name">
@@ -36,9 +38,15 @@
 					<h2>Today</h2>
 					<div class="todo__main-focus">
 						<div class="todo__list-wrapper">
-							<ul>
-								<li id="li"><a href="javascript:void(0)">Build an app using Vanilla javascript</a><span class="close">&times;</span></li>
+							<h3>What is your main focus today?</h3>
+							<ul id="mainFocusResult">
+								<!-- <li id="li"><a href="javascript:void(0)">Build an app using Vanilla javascript</a><span class="close">&times;</span></li> -->
 							</ul>
+							<form action="" id="mainFocusForm">
+								<div class="main-field">
+									<input type="text" id="main-input" placeholder="" class="main-input">
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
