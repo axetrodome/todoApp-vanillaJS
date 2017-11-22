@@ -39,7 +39,7 @@ function openLink(event){
 	    hours = now.getHours(),
 	    minutes = now.getMinutes(),
 	    getDayTime = new DayTime(hours,minutes)
-	    
+
 	time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
 	greetings = getDayTime.Greetings
 
@@ -81,7 +81,7 @@ userName.addEventListener('click',editName)
 function editName(event){
 	event.preventDefault()
 	userName.setAttribute('contenteditable','true')
-	var name = userName.innerText,
+	var name = userName.innerHTML,
 		formObject = {
 			id:Date.now(),
 			name:name
@@ -89,23 +89,40 @@ function editName(event){
 		storage = 'user',
 		currName = []
 	userName.addEventListener('blur',() => {
-		insert(formObject,storage,currName)
+		insertOnefn(formObject,storage,currName)
+		console.log(name)
 
 		fetchName()
 
 	})
 	// console.log('gg ez')
 }
+function insertOnefn(formObject,storage,arrayContainer){
+	this.formObject = formObject
+	this.storage = storage
+	this.arrayContainer = arrayContainer
+
+	if(localStorage.getItem(storage) === null){
+		this.arrayContainer.push(this.formObject)
+		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
+
+	}else{
+		this.arrayContainer = JSON.parse(localStorage.getItem(storage))
+		this.arrayContainer.splice(0,1,this.formObject);
+		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
+	}
+}
 function fetchName(){
 	var fetchName = JSON.parse(localStorage.getItem('user'))
 		userName.innerHTML = ``
 	if(!fetchName){
-		userName.innerHTML += ` `
+		userName.innerHTML += ` Enter name `
 	}else{
 		var name = fetchName.slice(-1).pop()
 		userName.innerHTML += fetchName.slice(-1).pop().name
 	}
 }
+
 function saveLink(event){
 	event.preventDefault()
 	var URL = document.getElementById('URL').value,
@@ -189,16 +206,19 @@ function saveMainFocus(event){
 			}
 		}
 
-		if(!validator('#mainFocusForm',obj)){
-			return false
-		}else{
-			insert(mainFocusObject,storage,mainArray)
+	if(!validator('#mainFocusForm',obj)){
+		return false
+	}else{
+		
+		insertOnefn(mainFocusObject,storage,mainArray)
 
-			mainFocusForm.reset()
-			
-			fetchMainFocusList();
-		}
+		mainFocusForm.reset()
+		
+		fetchMainFocusList();
+	}
 }
+
+
 
 // insert
 function insert(formObject,storage,arrayContainer){
@@ -271,16 +291,18 @@ function fetchLinkList(){
 }
 function fetchMainFocusList(){
 	var mainFocus = JSON.parse(localStorage.getItem('mainFocus')),
-		mainFocusResult = document.getElementById('mainFocusResult')
+		mainFocusResult = document.getElementById('mainFocusResult'),
+		mainInput = document.getElementById('main-input')
 
 	mainFocusResult.innerHTML = ``
 	if(!mainFocus.length){
-		mainFocusResult.innerHTML += `<li><h2>Empty List</h2></li>`
+		mainInput.style.display = "block"
 	}else{
 		for(var i = 0; i < mainFocus.length;i++){
 			var taskName = mainFocus[i].taskName,
 				id = mainFocus[i].id
 			mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+			mainInput.style.display = "none"
 		}
 	}
 }
