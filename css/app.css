@@ -33,6 +33,7 @@ body,html{
 .widget-wrapper h2{
 	font-size:3em;
 	margin-bottom:1em;
+
 }
 /*modals wrappers */
 .todo__main-wrapper h2{
@@ -226,4 +227,8 @@ body,html{
 	border-bottom:2px solid #fff;
 	background-color:transparent;
 	height:50
+}
+.editing{
+	transition:.5s;
+	border-bottom:2px solid #fff;
 }

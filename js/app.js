@@ -50,10 +50,10 @@ function openLink(event){
 function DayTime(hours,minutes){
 	this.hours = hours
 	this.minutes = minutes
-	if(this.hours <= 12){
+	if(this.hours < 12){
 		this.AmPm = 'AM'
 		this.Greetings = 'Good Morning'
-	}else if(this.hours >= 12 && this.hours <= 6){
+	}else if(this.hours >= 12 && this.hours <= 18){
 		this.AmPm = 'PM'
 		this.Greetings = 'Good Afternoon'
 	}else{
@@ -61,18 +61,34 @@ function DayTime(hours,minutes){
 		this.Greetings = 'Good Evening'
 	}
 	this.getTime = () => {
-		return time = ((this.hours + 1) % 12 + 11) + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
+		return time = (this.hours == 12 || this.hours == 24 ? 12 : (this.hours % 12)) + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
 	}
 }
 //forms
 var todoForm = document.getElementById('todoForm'),
-	linkForm = document.getElementById('linkForm'),
+	// linkForm = document.getElementById('linkForm'), //remove
 	mainFocusForm = document.getElementById('mainFocusForm'),
+	userName = document.getElementById('userName'),
 	selectedIndex = -1
 //event listeners
 todoForm.addEventListener('submit',saveTodo)
-linkForm.addEventListener('submit',saveLink)
+// linkForm.addEventListener('submit',saveLink) //remove ithink
 mainFocusForm.addEventListener('submit',saveMainFocus)
+userName.addEventListener('click',editName)
+
+//actions
+function editName(event){
+	event.preventDefault()
+	userName.setAttribute('contenteditable','true')
+
+	userName.addEventListener('blur',() => {
+		// insert()
+		console.log(userName.innerText)
+	})
+	// console.log('gg ez')
+
+}
+
 
 function saveLink(event){
 	event.preventDefault()
@@ -105,6 +121,7 @@ function saveTodo(event){
 		},
 		todoLists = []
 
+
 	insert(todoObject,storage,todoLists)
 
 	todoForm.reset()
@@ -123,6 +140,9 @@ function saveMainFocus(event){
 		},
 		mainArray = []
 
+
+	validate(mainFocusObject)
+
 	insert(mainFocusObject,storage,mainArray)
 
 	mainFocusForm.reset()
@@ -137,7 +157,6 @@ function insert(formObject,storage,arrayContainer){
 	this.arrayContainer = arrayContainer
 
 	if(localStorage.getItem(storage) === null){
-
 		this.arrayContainer.push(this.formObject)
 		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
 
@@ -216,8 +235,52 @@ function fetchMainFocusList(){
 }
 //end show
 //add validation
-function validate(formObjects){
+(function(){
+	var Validator = {
+		constructor:function(form,config){
+			this._elForm = form
+			this._els = config.fields || {}
 
+			this.init()
+		},
+		init:function(){
+			this.addFormListener()
+		},
+		addFormListener:function(){
+			var formSelector = this._elForm,
+				elForm = document.querySelector(formSelector)
+
+				elForm.addEventListener('submit',this.validate.bind(this))
+		},
+		validate:function(e){
+			var elFields = this._els
+
+			for(var field in elFields){
+				var el = document.querySelector(field),
+					elVal = el.value
+				if(elVal === '' || elVal.length <= elFields[field].maxLength ){
+					console.log('error')
+				}else{
+					console.log('success')
+				}
+			}
+			e.preventDefault()
+		}
+	}
+	validator(Validator)
+})()
+function validator(Validator){
+   Object.create(Validator).constructor('#linkForm', {
+    fields: {
+      '#URL': {
+        required: true,
+        maxlength:3
+      },
+      '#name': {
+        maxlength: 3
+      } 
+    }
+  });
 }
 // add user
 // add logo
