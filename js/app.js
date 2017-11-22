@@ -66,13 +66,13 @@ function DayTime(hours,minutes){
 }
 //forms
 var todoForm = document.getElementById('todoForm'),
-	// linkForm = document.getElementById('linkForm'), //remove
+	linkForm = document.getElementById('linkForm'), //remove
 	mainFocusForm = document.getElementById('mainFocusForm'),
 	userName = document.getElementById('userName'),
 	selectedIndex = -1
 //event listeners
 todoForm.addEventListener('submit',saveTodo)
-// linkForm.addEventListener('submit',saveLink) //remove ithink
+linkForm.addEventListener('submit',saveLink)//remove ithink
 mainFocusForm.addEventListener('submit',saveMainFocus)
 userName.addEventListener('click',editName)
 
@@ -101,14 +101,26 @@ function saveLink(event){
 			URL:URL,
 			name:name
 		},
-		linkLists = []
+		linkLists = [],
+		obj =  {
+		  fields: {
+		    '#URL': {
+		      required: true,
+		      maxlength:3
+		    },
+		    '#name': {
+		      maxlength: 4
+		    } 
+		  }
+		}
+	if(!validator('#linkForm',obj)){
+		return false
+	}else{
+		insert(formObject,storage,linkLists)
+		linkForm.reset()
+		fetchLinkList()
+	}
 
-
-	insert(formObject,storage,linkLists)
-
-	linkForm.reset()
-
-	fetchLinkList()
 }
 function saveTodo(event){
 	event.preventDefault()
@@ -119,14 +131,27 @@ function saveTodo(event){
 	 		id:Date.now(),
 			task:todoInput
 		},
-		todoLists = []
+		todoLists = [],
+		obj = {
+			fields:{
+				'#todoInput':{
+					required:true,
+					maxlength:4
+				}
+			}
+		}
 
+		//validation
+	if(!validator('#todoForm',obj)){
+		return false
+	}else{
 
-	insert(todoObject,storage,todoLists)
+		insert(todoObject,storage,todoLists)
 
-	todoForm.reset()
+		todoForm.reset()
 
-	fetchTodoList()
+		fetchTodoList()
+	}
 	
 }
 function saveMainFocus(event){
@@ -138,16 +163,25 @@ function saveMainFocus(event){
 			id:Date.now(),
 			taskName:mainInput
 		},
-		mainArray = []
+		mainArray = [],
+		obj = {
+			fields:{
+				'#main-input':{
+					required:true,
+					maxlength:4
+				}
+			}
+		}
 
+		if(!validator('#mainFocusForm',obj)){
+			return false
+		}else{
+			insert(mainFocusObject,storage,mainArray)
 
-	validate(mainFocusObject)
-
-	insert(mainFocusObject,storage,mainArray)
-
-	mainFocusForm.reset()
-	
-	fetchMainFocusList();
+			mainFocusForm.reset()
+			
+			fetchMainFocusList();
+		}
 }
 
 // insert
@@ -233,54 +267,19 @@ function fetchMainFocusList(){
 		}
 	}
 }
-//end show
-//add validation
-(function(){
-	var Validator = {
-		constructor:function(form,config){
-			this._elForm = form
-			this._els = config.fields || {}
 
-			this.init()
-		},
-		init:function(){
-			this.addFormListener()
-		},
-		addFormListener:function(){
-			var formSelector = this._elForm,
-				elForm = document.querySelector(formSelector)
+function validator(form,obj){
+	var form = document.querySelector(form)
+	var elFields = obj.fields || {};
 
-				elForm.addEventListener('submit',this.validate.bind(this))
-		},
-		validate:function(e){
-			var elFields = this._els
-
-			for(var field in elFields){
-				var el = document.querySelector(field),
-					elVal = el.value
-				if(elVal === '' || elVal.length <= elFields[field].maxLength ){
-					console.log('error')
-				}else{
-					console.log('success')
-				}
-			}
-			e.preventDefault()
+	for(field in elFields){
+		var el = document.querySelector(field)
+			elVal = el.value
+		if(elVal.trim() === '' || elVal.length < elFields[field].maxlength){
+			return false;
 		}
 	}
-	validator(Validator)
-})()
-function validator(Validator){
-   Object.create(Validator).constructor('#linkForm', {
-    fields: {
-      '#URL': {
-        required: true,
-        maxlength:3
-      },
-      '#name': {
-        maxlength: 3
-      } 
-    }
-  });
+	return true
 }
 // add user
 // add logo
