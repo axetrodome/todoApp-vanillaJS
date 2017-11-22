@@ -1,6 +1,7 @@
-function Open(event){
-	let todoModal = document.getElementById('todoModal'),
-		todoBtn = document.getElementById('todoBtn')
+
+function Open(event){     
+	let todoModal = document.getElementById('todoModal'),         
+	todoBtn = document.getElementById('todoBtn')
 
 	if(todoModal.className === 'todo-wrapper'){
 		todoModal.className += ' show';
@@ -38,7 +39,7 @@ function openLink(event){
 	    hours = now.getHours(),
 	    minutes = now.getMinutes(),
 	    getDayTime = new DayTime(hours,minutes)
-
+	    
 	time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
 	greetings = getDayTime.Greetings
 
@@ -61,7 +62,7 @@ function DayTime(hours,minutes){
 		this.Greetings = 'Good Evening'
 	}
 	this.getTime = () => {
-		return time = (this.hours == 12 || this.hours == 24 ? 12 : (this.hours % 12)) + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
+		return time = (this.hours == 12 || this.hours == 0 ? 12 : (this.hours % 12)) + ':' + (this.minutes < 10 ? '0' : '') + this.minutes;
 	}
 }
 //forms
@@ -80,16 +81,31 @@ userName.addEventListener('click',editName)
 function editName(event){
 	event.preventDefault()
 	userName.setAttribute('contenteditable','true')
-
+	var name = userName.innerText,
+		formObject = {
+			id:Date.now(),
+			name:name
+		},
+		storage = 'user',
+		currName = []
 	userName.addEventListener('blur',() => {
-		// insert()
-		console.log(userName.innerText)
+		insert(formObject,storage,currName)
+
+		fetchName()
+
 	})
 	// console.log('gg ez')
-
 }
-
-
+function fetchName(){
+	var fetchName = JSON.parse(localStorage.getItem('user'))
+		userName.innerHTML = ``
+	if(!fetchName){
+		userName.innerHTML += ` `
+	}else{
+		var name = fetchName.slice(-1).pop()
+		userName.innerHTML += fetchName.slice(-1).pop().name
+	}
+}
 function saveLink(event){
 	event.preventDefault()
 	var URL = document.getElementById('URL').value,
@@ -214,6 +230,7 @@ function deleteTask(id,storage){
 	fetchTodoList();
 	fetchLinkList();
 	fetchMainFocusList();
+	fetchName();
 
 }
 
@@ -281,13 +298,12 @@ function validator(form,obj){
 	}
 	return true
 }
-// add user
+fetchTodoList()
+fetchLinkList()
+fetchMainFocusList()
+fetchName()
+// add user 
 // add logo
-//add add, show and delete 
 //add editing data
 //call the
 //refator fetching!
-fetchTodoList()
-fetchLinkList()
-fetchMainFocusList();
-
