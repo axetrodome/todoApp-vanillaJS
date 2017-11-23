@@ -9,7 +9,8 @@ body,html{
 	width:100%;
 }
 .background-image{
-	background-image: url('../images/forest.jpg');
+	/*background-image: url('../images/forest.jpg');*/
+	background-color:#333;
 	background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
@@ -19,7 +20,7 @@ body,html{
 }
 .widget-wrapper{
 	position:absolute;
-	top:35%;
+	top:30%;
 	text-align:center;
 	left:50%;
 	width:100%;
@@ -145,9 +146,6 @@ body,html{
 .link-wrapper__list ul li span:hover{
 	color:#95a5a6;
 }
-.todo-wrapper.show,.link-wrapper.show{
-	display:block;
-}
 /*end of modal wrappers */
 .clearfix{
 	content:'';
@@ -186,7 +184,7 @@ body,html{
 .link-wrapper::after{
 	content:'';
 	position: absolute;
-	top:-14%;
+	top:-18px;
 	left: -85%;
 	right: 0;
 	margin: 0 auto;
@@ -226,9 +224,12 @@ body,html{
 	border:none;
 	border-bottom:2px solid #fff;
 	background-color:transparent;
-	height:50
+
 }
 .editing{
 	transition:.5s;
 	border-bottom:2px solid #fff;
+}
+.is-hidden {
+  display: none;
 }

@@ -1,14 +1,59 @@
 
-function Open(event){     
-	let todoModal = document.getElementById('todoModal'),         
-	todoBtn = document.getElementById('todoBtn')
+function fadeOut(el){
+  el.style.opacity = 1;
 
-	if(todoModal.className === 'todo-wrapper'){
-		todoModal.className += ' show';
-	}else{
-		todoModal.className = 'todo-wrapper'
-	}
+  (function fade() {
+    if ((el.style.opacity -= .1) < 0) {
+      el.style.display = 'none';
+      el.classList.add('is-hidden');
+    } else {
+      requestAnimationFrame(fade);
+    }
+  })();
 }
+
+function fadeIn(el, display){
+  if (el.classList.contains('is-hidden')){
+    el.classList.remove('is-hidden');
+  }
+
+    el.style.opacity = 0;
+    el.style.display = display || "block";
+
+  (function fade() {
+    var val = parseFloat(el.style.opacity);
+    if (!((val += .1) > 1)) {
+			el.style.opacity = val;
+			requestAnimationFrame(fade);
+		}
+	})();
+}
+// refator later
+var linkbtn = document.querySelector('.link-btn'),
+	linkel = document.querySelector('.link-wrapper'),
+	todobtn = document.querySelector('.todo-btn'),
+	todoel = document.querySelector('.todo-wrapper')
+
+
+linkbtn.addEventListener('click',function(e){
+	if(linkel.classList.contains('is-hidden')){
+		fadeIn(linkel);
+	}else{
+		fadeOut(linkel);
+	}
+})
+
+todobtn.addEventListener('click',function(e){
+	if(todoel.classList.contains('is-hidden')){
+		fadeIn(todoel);
+	}else{
+		fadeOut(todoel);
+	}
+})
+
+//end refactor later
+
+
 
 function openLink(event){
 	let linkModal = document.getElementById('linkModal'),
@@ -320,6 +365,8 @@ function validator(form,obj){
 	}
 	return true
 }
+
+
 fetchTodoList()
 fetchLinkList()
 fetchMainFocusList()
