@@ -53,8 +53,6 @@ todobtn.addEventListener('click',function(e){
 
 //end refactor later
 
-
-
 function openLink(event){
 	let linkModal = document.getElementById('linkModal'),
 		linkBtn = document.getElementById('linkBtn')
@@ -93,6 +91,8 @@ function openLink(event){
 
 	setTimeout(updateClock,1000)
 })(); //invoking itself
+
+
 function DayTime(hours,minutes){
 	this.hours = hours
 	this.minutes = minutes
@@ -124,21 +124,19 @@ userName.addEventListener('click',editName)
 
 //actions
 function editName(event){
-	event.preventDefault()
 	userName.setAttribute('contenteditable','true')
-	var name = userName.innerHTML,
-		formObject = {
-			id:Date.now(),
-			name:name
-		},
-		storage = 'user',
-		currName = []
-	userName.addEventListener('blur',() => {
-		insertOnefn(formObject,storage,currName)
-		console.log(name)
+	var name = document.querySelector("#userName").innerHTML;
+	userName.addEventListener('blur',function(){
+		var name = userName.innerHTML,
+			formObject = {
+				id:Date.now(),
+				name:name
+			},
+			storage = 'user',
+			currName = []
 
-		fetchName()
-
+			insertOnefn(formObject,storage,currName)
+			fetchName()
 	})
 	// console.log('gg ez')
 }
@@ -330,7 +328,7 @@ function fetchLinkList(){
 				name = linkLists[i].name,
 				id = linkLists[i].id
 
-			linkListResult.innerHTML += `<li><a href="${URL}" target="_blank">${name}</a><span onclick="deleteTask(${id},'linkLists')">&times;</span></li>`
+			linkListResult.innerHTML += `<li><img style="margin-right:3px;position:relative;bottom:-2.5px;" height="16" width="16" src='http://www.google.com/s2/favicons?domain=${URL}' /> <a href="${URL}" target="_blank"> ${name} </a><span onclick="deleteTask(${id},'linkLists')">&times;</span></li>`
 		}
 	}
 }
