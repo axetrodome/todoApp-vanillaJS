@@ -9,8 +9,8 @@ body,html{
 	width:100%;
 }
 .background-image{
-	/*background-image: url('../images/forest.jpg');*/
-	background-color:#333;
+	background-image: url('../images/forest.jpg');
+	/*background-color:#333;*/
 	background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
@@ -42,6 +42,14 @@ body,html{
 }
 .todo__list-wrapper{
 	font-size:2em;
+}
+ul li {
+	 transition: 0.5s;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-o-user-select: none;
+	-ms-user-select:none;
+	 user-select: none;
 }
 .todo__list-wrapper ul li a{
 	text-decoration:none;
@@ -232,6 +240,11 @@ body,html{
 }
 .is-hidden {
   display: none;
+}
+ul li.checked{
+	text-decoration: line-through;
+	transition:.5s;
+
 }
 /*.loader{
     border: 5px solid #f3f3f3;

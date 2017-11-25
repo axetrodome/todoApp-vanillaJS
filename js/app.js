@@ -122,6 +122,13 @@ linkForm.addEventListener('submit',saveLink)//remove ithink
 mainFocusForm.addEventListener('submit',saveMainFocus)
 userName.addEventListener('click',editName)
 
+//marking the main Focus list
+document.querySelector("#mainFocusResult").addEventListener('click',function(ev){
+	if(ev.target.tagName === 'LI'){
+		ev.target.classList.toggle('checked');
+	}
+},false)
+
 //actions
 function editName(event){
 	userName.setAttribute('contenteditable','true')
@@ -139,31 +146,6 @@ function editName(event){
 			fetchName()
 	})
 	// console.log('gg ez')
-}
-function insertOnefn(formObject,storage,arrayContainer){
-	this.formObject = formObject
-	this.storage = storage
-	this.arrayContainer = arrayContainer
-
-	if(localStorage.getItem(storage) === null){
-		this.arrayContainer.push(this.formObject)
-		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
-
-	}else{
-		this.arrayContainer = JSON.parse(localStorage.getItem(storage))
-		this.arrayContainer.splice(0,1,this.formObject);
-		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
-	}
-}
-function fetchName(){
-	var fetchName = JSON.parse(localStorage.getItem('user'))
-		userName.innerHTML = ``
-	if(!fetchName){
-		userName.innerHTML += ` Enter name `
-	}else{
-		var name = fetchName.slice(-1).pop()
-		userName.innerHTML += fetchName.slice(-1).pop().name
-	}
 }
 
 function saveLink(event){
@@ -237,7 +219,8 @@ function saveMainFocus(event){
 		storage = 'mainFocus',
 		mainFocusObject = {
 			id:Date.now(),
-			taskName:mainInput
+			taskName:mainInput,
+			isDone:false
 		},
 		mainArray = [],
 		obj = {
@@ -262,6 +245,22 @@ function saveMainFocus(event){
 }
 
 
+// insert one and delete one
+function insertOnefn(formObject,storage,arrayContainer){
+	this.formObject = formObject
+	this.storage = storage
+	this.arrayContainer = arrayContainer
+
+	if(localStorage.getItem(storage) === null){
+		this.arrayContainer.push(this.formObject)
+		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
+
+	}else{
+		this.arrayContainer = JSON.parse(localStorage.getItem(storage))
+		this.arrayContainer.splice(0,1,this.formObject);
+		localStorage.setItem(storage,JSON.stringify(this.arrayContainer))
+	}
+}
 
 // insert
 function insert(formObject,storage,arrayContainer){
@@ -343,10 +342,27 @@ function fetchMainFocusList(){
 	}else{
 		for(var i = 0; i < mainFocus.length;i++){
 			var taskName = mainFocus[i].taskName,
-				id = mainFocus[i].id
-			mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+				id = mainFocus[i].id,
+				done = mainFocus[i].isDone
+
+				if(done){
+					mainFocusResult.innerHTML += `<li class="checked">${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+				}else{
+					mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+				}
 			mainInput.style.display = "none"
 		}
+	}
+}
+
+function fetchName(){
+	var fetchName = JSON.parse(localStorage.getItem('user'))
+		userName.innerHTML = ``
+	if(!fetchName){
+		userName.innerHTML += ` Enter name `
+	}else{
+		var name = fetchName.slice(-1).pop()
+		userName.innerHTML += fetchName.slice(-1).pop().name
 	}
 }
 
