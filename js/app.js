@@ -123,7 +123,13 @@ mainFocusForm.addEventListener('submit',saveMainFocus)
 userName.addEventListener('click',editName)
 
 //marking the main Focus list
-document.querySelector("#mainFocusResult").addEventListener('click',function(ev){
+// document.querySelector("#mainFocusResult").addEventListener('click',function(ev){
+// 	if(ev.target.tagName === 'LI'){
+// 		ev.target.classList.toggle('checked');
+// 	}
+// },false)
+
+document.querySelector("#todoListResult").addEventListener('click',function(ev){
 	if(ev.target.tagName === 'LI'){
 		ev.target.classList.toggle('checked');
 	}
@@ -331,6 +337,22 @@ function fetchLinkList(){
 		}
 	}
 }
+function isDone(id,storage){
+	var data = JSON.parse(localStorage.getItem(storage))
+	console.log(id)
+	for(var i = 0;i < data.length;i++){
+		if(data[i].id === id){
+			data[i].isDone = !data[i].isDone;
+		}
+	}
+	localStorage.setItem(storage,JSON.stringify(data))
+
+	// fetchTodoList();
+	// fetchLinkList();
+	fetchMainFocusList();
+	// fetchName();
+
+}
 function fetchMainFocusList(){
 	var mainFocus = JSON.parse(localStorage.getItem('mainFocus')),
 		mainFocusResult = document.getElementById('mainFocusResult'),
@@ -338,18 +360,17 @@ function fetchMainFocusList(){
 
 	mainFocusResult.innerHTML = ``
 	if(!mainFocus.length){
-		mainInput.style.display = "block"
+		mainInput.style.display = "block";
 	}else{
 		for(var i = 0; i < mainFocus.length;i++){
 			var taskName = mainFocus[i].taskName,
 				id = mainFocus[i].id,
 				done = mainFocus[i].isDone
-
-				if(done){
-					mainFocusResult.innerHTML += `<li class="checked">${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
-				}else{
-					mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
-				}
+			if(done){
+				mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+			}else{
+				mainFocusResult.innerHTML += `<li><a onclick="isDone(${id},'mainFocus')">${taskName}</a><span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+			}
 			mainInput.style.display = "none"
 		}
 	}
@@ -379,7 +400,6 @@ function validator(form,obj){
 	}
 	return true
 }
-
 
 fetchTodoList()
 fetchLinkList()
