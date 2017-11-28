@@ -345,7 +345,6 @@ function isDone(id,storage){
 		}
 	}
 	localStorage.setItem(storage,JSON.stringify(data))
-
 	// fetchTodoList();
 	// fetchLinkList();
 	fetchMainFocusList();
@@ -366,7 +365,7 @@ function fetchMainFocusList(){
 				id = mainFocus[i].id,
 				done = mainFocus[i].isDone
 			if(done){
-				mainFocusResult.innerHTML += `<li>${taskName}<span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
+				mainFocusResult.innerHTML += `<li class='checked'><a onclick="isDone(${id},'mainFocus')">${taskName}</a><span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
 			}else{
 				mainFocusResult.innerHTML += `<li><a onclick="isDone(${id},'mainFocus')">${taskName}</a><span onclick="deleteTask(${id},'mainFocus')">&times;</span></li>`
 			}
