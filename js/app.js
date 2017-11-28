@@ -193,7 +193,8 @@ function saveTodo(event){
 		storage = 'todoLists'
 	 	todoObject = {
 	 		id:Date.now(),
-			task:todoInput
+			task:todoInput,
+			isDone:false
 		},
 		todoLists = [],
 		obj = {
@@ -312,9 +313,13 @@ function fetchTodoList(){
 	}else{
 		for(var i = 0; i < todoLists.length;i++){
 			var task = todoLists[i].task,
-				id = todoLists[i].id
-
-			todoListResult.innerHTML += `<li>${task}<span onclick="deleteTask(${id},'todoLists')">&times;</span></li>`
+				id = todoLists[i].id,
+				done = todoLists[i].isDone
+			if(done){
+				todoListResult.innerHTML += `<li class='checked'>${task}<span onclick="deleteTask(${id},'todoLists')">&times;</span></li>`
+			}else{
+				todoListResult.innerHTML += `<li>${task}<span onclick="deleteTask(${id},'todoLists')">&times;</span></li>`				
+			}
 		}
 	}
 
