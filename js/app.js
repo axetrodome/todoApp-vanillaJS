@@ -307,8 +307,7 @@ function fetchTodoList(){
 	var todoLists = JSON.parse(localStorage.getItem('todoLists')),
 		todoListResult = document.getElementById('todoListResult')
 	todoListResult.innerHTML = ``
-	if(!todoLists.length){
-
+	if(!todoLists){
 		todoListResult.innerHTML += `<li><h2>Empty List</h2></li>`
 	}else{
 		for(var i = 0; i < todoLists.length;i++){
@@ -325,7 +324,7 @@ function fetchLinkList(){
 		linkListResult = document.getElementById('linkListResult')
 
 	linkListResult.innerHTML = ``
-	if(!linkLists.length){
+	if(!linkLists){
 		linkListResult.innerHTML += `<li><h2>Empty List</h2></li>`
 	}else{
 		for(var i = 0; i < linkLists.length;i++){
@@ -380,7 +379,7 @@ function fetchName(){
 	var fetchName = JSON.parse(localStorage.getItem('user'))
 		userName.innerHTML = ``
 	if(!fetchName){
-		userName.innerHTML += ` Enter name `
+		userName.innerHTML += `Enter name`
 	}else{
 		var name = fetchName.slice(-1).pop()
 		userName.innerHTML += fetchName.slice(-1).pop().name
