@@ -75,6 +75,7 @@ ul li {
 }
 .todo-wrapper,.todo-btn,.link-wrapper,.link-btn{
 	position:absolute;
+	z-index:3;
 }
 .link-wrapper,.link-btn{
 	left:0;
