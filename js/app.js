@@ -362,7 +362,7 @@ function fetchMainFocusList(){
 		mainInput = document.getElementById('main-input')
 
 	mainFocusResult.innerHTML = ``
-	if(!mainFocus.length){
+	if(!mainFocus){
 		mainInput.style.display = "block";
 	}else{
 		for(var i = 0; i < mainFocus.length;i++){
@@ -382,7 +382,7 @@ function fetchMainFocusList(){
 function fetchName(){
 	var fetchName = JSON.parse(localStorage.getItem('user'))
 		userName.innerHTML = ``
-	if(!fetchName){
+	if(!fetchName || !fetchName === null){
 		userName.innerHTML += `Enter name`
 	}else{
 		var name = fetchName.slice(-1).pop()
@@ -403,6 +403,7 @@ function validator(form,obj){
 	}
 	return true
 }
+
 
 fetchTodoList()
 fetchLinkList()
