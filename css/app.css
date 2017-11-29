@@ -250,9 +250,18 @@ ul li.checked{
 
 }
 .fa-cog{
-	float:right;s
+	float:right;
 }
 .todo-wrapper a{
+	color:#fff;
+}
+.settings-btn-wrapper{
+	position:absolute;
+	bottom:12px;
+	left:12px;
+
+}
+.settings-btn-wrapper a{
 	color:#fff;
 }
 .settings-wrapper{
