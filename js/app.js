@@ -1,4 +1,3 @@
-
 function fadeOut(el){
   el.style.opacity = 1;
 
@@ -32,8 +31,17 @@ function fadeIn(el, display){
 var linkbtn = document.querySelector('.link-btn'),
 	linkel = document.querySelector('.link-wrapper'),
 	todobtn = document.querySelector('.todo-btn'),
-	todoel = document.querySelector('.todo-wrapper')
+	todoel = document.querySelector('.todo-wrapper'),
+	settingel = document.querySelector('.settings-wrapper'),
+	settingsBtn = document.querySelector('.settings-btn')
 
+settingsBtn.addEventListener('click',function(e){
+	if(settingel.classList.contains('is-hidden')){
+		fadeIn(settingel);
+	}else{
+		fadeOut(settingel);
+	}
+})
 
 linkbtn.addEventListener('click',function(e){
 	if(linkel.classList.contains('is-hidden')){
@@ -82,8 +90,12 @@ function openLink(event){
 	    hours = now.getHours(),
 	    minutes = now.getMinutes(),
 	    getDayTime = new DayTime(hours,minutes)
+	    	if(document.querySelector('.checkbox').checked == true){
+				time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
+	    	}else{
+	    		time = now.getHours() + ':' + (minutes < 10 ? '0' : '') + minutes;
+	    	}
 
-	time = getDayTime.getTime() + '<small class="small">' + getDayTime.AmPm + '</small>';
 	greetings = getDayTime.Greetings
 
 	document.getElementById('time').innerHTML = time
@@ -122,18 +134,6 @@ linkForm.addEventListener('submit',saveLink)//remove ithink
 mainFocusForm.addEventListener('submit',saveMainFocus)
 userName.addEventListener('click',editName)
 
-//marking the main Focus list
-// document.querySelector("#mainFocusResult").addEventListener('click',function(ev){
-// 	if(ev.target.tagName === 'LI'){
-// 		ev.target.classList.toggle('checked');
-// 	}
-// },false)
-
-document.querySelector("#todoListResult").addEventListener('click',function(ev){
-	if(ev.target.tagName === 'LI'){
-		ev.target.classList.toggle('checked');
-	}
-},false)
 
 //actions
 function editName(event){
@@ -383,7 +383,7 @@ function fetchName(){
 	var fetchName = JSON.parse(localStorage.getItem('user'))
 		userName.innerHTML = ``
 	if(!fetchName || !fetchName === null){
-		userName.innerHTML += `Enter name`
+		userName.innerHTML += ` Enter name`
 	}else{
 		var name = fetchName.slice(-1).pop()
 		userName.innerHTML += fetchName.slice(-1).pop().name
@@ -404,13 +404,10 @@ function validator(form,obj){
 	return true
 }
 
-
+function setFormat(){
+	console.log('gg')
+}
 fetchTodoList()
 fetchLinkList()
 fetchMainFocusList()
 fetchName()
-// add user 
-// add logo
-//add editing data
-//call the
-//refator fetching!
