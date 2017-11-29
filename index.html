@@ -54,7 +54,7 @@
 			</div>
 			<a class="todo-btn" id="todoBtn">Todo</a>
 			<div class="todo-wrapper is-hidden" id="todoModal">
-				<h3 >Today <i class="fa fa-caret-down"></i><a href="javascript:void(0)" class="settings-btn"><i class="fa fa-cog"></i></a></h3>
+				<h3 >Today <i class="fa fa-caret-down"></i><a href="javascript:void(0)" class="settings-btn" onclick="openSettings(event)"><i class="fa fa-cog"></i></a></h3>
 				<div class="todo-wrapper__list">
 					<!-- results -->
 					<ul id="todoListResult"></ul>
@@ -65,6 +65,9 @@
 						</div>
 					</form>
 				</div>
+			</div>
+			<div class="settings-btn-wrapper">
+				<a href="javascript:void(0)" class="settings-btn" onclick="openSettings(event)"><i class="fa fa-cog"></i></a>
 			</div>
 			<div class="settings-wrapper is-hidden"> <!-- add is-hidden later -->
 				<span class="close">&times;</span>
