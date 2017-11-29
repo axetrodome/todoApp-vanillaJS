@@ -32,16 +32,20 @@ var linkbtn = document.querySelector('.link-btn'),
 	linkel = document.querySelector('.link-wrapper'),
 	todobtn = document.querySelector('.todo-btn'),
 	todoel = document.querySelector('.todo-wrapper'),
-	settingel = document.querySelector('.settings-wrapper'),
-	settingsBtn = document.querySelector('.settings-btn')
+	settingel = document.querySelector('.settings-wrapper');
 
-settingsBtn.addEventListener('click',function(e){
+window.onclick = function(event) {
+    if (event.target == document.querySelector('.background-image') || event.target == document.querySelector('h1')) {
+       fadeOut(settingel);
+    }
+}
+function openSettings(e){
 	if(settingel.classList.contains('is-hidden')){
 		fadeIn(settingel);
 	}else{
 		fadeOut(settingel);
 	}
-})
+}
 
 linkbtn.addEventListener('click',function(e){
 	if(linkel.classList.contains('is-hidden')){
