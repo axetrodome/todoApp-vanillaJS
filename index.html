@@ -54,7 +54,7 @@
 			</div>
 			<a class="todo-btn" id="todoBtn">Todo</a>
 			<div class="todo-wrapper is-hidden" id="todoModal">
-				<h3 >Today <i class="fa fa-caret-down"></i><a href="javascript:void(0)" onclick="settings()"><i class="fa fa-cog"></i></a></h3>
+				<h3 >Today <i class="fa fa-caret-down"></i><a href="javascript:void(0)" class="settings-btn"><i class="fa fa-cog"></i></a></h3>
 				<div class="todo-wrapper__list">
 					<!-- results -->
 					<ul id="todoListResult"></ul>
@@ -66,13 +66,13 @@
 					</form>
 				</div>
 			</div>
-			<div class="settings-wrapper is-hidden">
-
+			<div class="settings-wrapper is-hidden"> <!-- add is-hidden later -->
 				<span class="close">&times;</span>
 				<div class="set-time-type">
+					12 hours format:
 					<label class="switch">
-					  <input type="checkbox">
-					  <span class="slider"></span>
+					  <input type="checkbox" class="checkbox" checked="">
+					  <span class="slider" onclick="setFormat()"></span>
 					</label>
 				</div>
 			</div>
