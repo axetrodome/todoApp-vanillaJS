@@ -26,7 +26,7 @@ body,html{
 	width:100%;
 	transform:translate(-50%,0%);
 	color:#fff;
-	z-index:2;
+	z-index:1;
 
 }
 .widget-wrapper h1{
@@ -334,6 +334,9 @@ input:checked + .slider:before{
 }
 .set-time-type{
 	font-size:14px;
+}
+.settings-btn-wrapper{
+	z-index:4;
 }
 /*.loader{
     border: 5px solid #f3f3f3;
